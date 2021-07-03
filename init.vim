@@ -21,7 +21,6 @@ Plug 'christoomey/vim-tmux-navigator'
 "EasyAlign
 Plug 'junegunn/vim-easy-align'
 "Ariline
-"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "COC
@@ -43,7 +42,6 @@ Plug 'turbio/bracey.vim'
 "Fugitive (Git)
 Plug 'tpope/vim-fugitive'
 call plug#end()
-
 
 let mapleader=" "
 
