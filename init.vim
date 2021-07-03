@@ -138,7 +138,8 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 ""//////Config Fugitive
-"status
+"status we can stage and unstage los archivos con s en el archivo para stage y
+"u para unstage  
 nmap <leader>gs :G<CR> 
 
 nmap <leader>gh :diffget //3<CR>
