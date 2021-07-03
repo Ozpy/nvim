@@ -1,7 +1,7 @@
 set number
 set mouse=a
 set numberwidth=1
-set clipboard=unnamed
+set clipboard=unnamedplus
 syntax enable
 set showcmd
 set ruler
@@ -9,10 +9,9 @@ set showmatch
 set sw=2
 set relativenumber
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-				"Theme
+                                "Theme
 Plug 'morhetz/gruvbox'
-
-				"IDE:
+                                "IDE:
 "Easymotion
 Plug 'easymotion/vim-easymotion'
 "NerdTree
@@ -26,7 +25,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "COC
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'honza/vim-snippets' 
+Plug 'honza/vim-snippets'
 "Emet
 Plug 'mattn/emmet-vim'
 "Nercommenter
@@ -38,6 +37,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'mattn/emmet-vim'
 "Floaterm: abrir consola en nvim
 Plug 'voldikss/vim-floaterm'
+"Bracey
+Plug 'turbio/bracey.vim'
 call plug#end()
 
 
@@ -47,7 +48,7 @@ let mapleader=" "
 nmap <Leader>q :q<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>wq :wq<CR>
-:imap aa <Esc>
+imap aa <Esc>
 nmap <Leader>f :Files<CR>
 
 "Config Theme:
@@ -63,25 +64,26 @@ let NERDTreeQuitOnOpen=1
 
 "Config airline
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#formatter = 'default'
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
+"let g:airline#extensions#tabline#formatter = 'jsformatter'
 
  nmap <Leader>1 :b1<CR>
  nmap <Leader>2 :b3<CR>
  nmap <Leader>3 :b4<CR>
  nmap <Leader>4 :b5<CR>
  nmap <Leader>5 :b6<CR>
- nmap <Leader>l :bnext<CR>
- nmap <Leader>h :bprevious<CR>
+ nmap <Leader>L :bnext<CR>
+ nmap <Leader>H :bprevious<CR>
+ nmap <Leader>l gt<CR>
+ nmap <Leader>h gT<CR>
 
- let g:airline_theme='cool'
-								      "Config nerdCommenter
-filetype plugin on  
-								      "Config COC snippets
+let g:airline_theme='bubblegum'
+                                                                      "Config nerdCommenter
+filetype plugin on
+                                                                      "Config COC snippets
 " Use <C-l> for trigger snippet expand.
-imap  <silent><expr> <Plug>(coc-snippets-expand)
-
+imap <C-l> <Plug>(coc-snippets-expand)
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
 
@@ -93,15 +95,35 @@ let g:coc_snippet_prev = '<c-k>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-									"Config Floaterm
-nmap <Leader>cmd :FloatermNew 
+
+" Use <leader>x for convert visual selected code to snippet
+xmap <leader>x  <Plug>(coc-convert-snippet)
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+                                                                        "Config Floaterm
+nmap <Leader>cmd :FloatermNew
 let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
 nmap <Leader>cmdp :FloatermPrev
-									"Config COC movimiento de seleccion de autocompletar
+                                                                        "Config COC movimiento de seleccion de autocompletar
 "Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " use <c-space>for trigger completion
-Iinoremap <silent><expr> <c-space> coc#refresh()
-
+inoremap <silent><expr> <c-space> coc#refresh()
+" Configuration example
+let g:floaterm_keymap_new    = '<F9>'
+let g:floaterm_keymap_prev   = '<F7>'
+let g:floaterm_keymap_next   = '<F8>'
+let g:floaterm_keymap_toggle = '<F12>'
