@@ -1,7 +1,7 @@
 set number
 set mouse=a
 set numberwidth=1
-set clipboard=unnamedplus
+set clipboard=unnamed
 syntax enable
 set showcmd
 set ruler
@@ -39,6 +39,7 @@ Plug 'mattn/emmet-vim'
 Plug 'voldikss/vim-floaterm'
 "Bracey
 Plug 'turbio/bracey.vim'
+ 
 call plug#end()
 
 
@@ -98,32 +99,34 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <leader>x  <Plug>(coc-convert-snippet)
+"Usar tab para brincar en el codigo
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? coc#_select_confirm() :
+      "\ coc#expandableOrJumpable() ?
+""\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      "\ <SID>check_back_space() ?
+""\<TAB>" :
+      "\ coc#refresh()
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-let g:coc_snippet_next = '<tab>'
+"let g:coc_snippet_next = '<tab>'
                                                                         "Config Floaterm
 nmap <Leader>cmd :FloatermNew
 let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
 nmap <Leader>cmdp :FloatermPrev
+" Configuration floaterm 
+let g:floaterm_keymap_new    = '<F9>'
+let g:floaterm_keymap_prev   = '<F7>'
+let g:floaterm_keymap_next   = '<F8>'
+let g:floaterm_keymap_toggle = '<F12>'
                                                                         "Config COC movimiento de seleccion de autocompletar
 "Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
-" Configuration example
-let g:floaterm_keymap_new    = '<F9>'
-let g:floaterm_keymap_prev   = '<F7>'
-let g:floaterm_keymap_next   = '<F8>'
-let g:floaterm_keymap_toggle = '<F12>'
