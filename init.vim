@@ -21,6 +21,7 @@ Plug 'christoomey/vim-tmux-navigator'
 "EasyAlign
 Plug 'junegunn/vim-easy-align'
 "Ariline
+"
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 "COC
@@ -39,7 +40,8 @@ Plug 'mattn/emmet-vim'
 Plug 'voldikss/vim-floaterm'
 "Bracey
 Plug 'turbio/bracey.vim'
- 
+"Fugitive (Git)
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 
@@ -51,24 +53,7 @@ nmap <Leader>w :w<CR>
 nmap <Leader>wq :wq<CR>
 imap aa <Esc>
 nmap <Leader>f :Files<CR>
-
-"Config Theme:
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = "hard"
-
-"Config easymotion
-nmap <Leader>s <Plug>(easymotion-s2)
-
-"Config NerdTree
-nmap <Leader>nt :NERDTreeFind<CR>
-let NERDTreeQuitOnOpen=1
-
-"Config airline
-let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#left_sep = ' '
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"let g:airline#extensions#tabline#formatter = 'jsformatter'
-
+"Config tabs
  nmap <Leader>1 :b1<CR>
  nmap <Leader>2 :b3<CR>
  nmap <Leader>3 :b4<CR>
@@ -79,6 +64,27 @@ let g:airline#extensions#tabline#enabled = 1
  nmap <Leader>l gt<CR>
  nmap <Leader>h gT<CR>
 
+"Config Theme:
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = "hard"
+set background=dark
+
+"Config easymotion
+nmap <Leader>s <Plug>(easymotion-s2)
+
+"Config NerdTree
+nmap <Leader>nt :NERDTreeFind<CR>
+let NERDTreeQuitOnOpen=1
+
+"Config airline
+set ttimeoutlen=50
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled=1
+
+if !exists('g:airline_symbols')
+  let g:airline_symbols = {}
+endif
+let g:airline_symbols.space = "\ua0"
 let g:airline_theme='bubblegum'
                                                                       "Config nerdCommenter
 filetype plugin on
@@ -124,9 +130,16 @@ let g:floaterm_keymap_new    = '<F9>'
 let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F12>'
+
                                                                         "Config COC movimiento de seleccion de autocompletar
 "Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
+""//////Config Fugitive
+"status
+nmap <leader>gs :G<CR> 
+
+nmap <leader>gh :diffget //3<CR>
+nmap <leader>gu :diffget //2<CR>
