@@ -120,7 +120,7 @@ xmap <leader>x  <Plug>(coc-convert-snippet)
 "endfunction
 
 "let g:coc_snippet_next = '<tab>'
-                                                                        "Config Floaterm
+""///////////Config Floaterm
 nmap <Leader>cmd :FloatermNew
 let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
@@ -130,9 +130,7 @@ let g:floaterm_keymap_new    = '<F9>'
 let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F12>'
-
-
-                                                                        "Config COC movimiento de seleccion de autocompletar
+"//////////Config COC movimiento de seleccion de autocompletar
 "Use <Tab> and <S-Tab> to navigate the completion list:
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -142,6 +140,5 @@ inoremap <silent><expr> <c-space> coc#refresh()
 "status we can stage and unstage los archivos con s en el archivo para stage y
 "u para unstage  
 nmap <leader>gs :G<CR> 
-
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
