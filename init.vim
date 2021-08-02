@@ -41,6 +41,12 @@ Plug 'voldikss/vim-floaterm'
 Plug 'turbio/bracey.vim'
 "Fugitive (Git)
 Plug 'tpope/vim-fugitive'
+"Autoclose
+Plug 'jiangmiao/auto-pairs'
+"Color
+Plug 'KabbAmine/vCoolor.vim'
+"Copy 
+Plug 'NLKNguyen/copy-cut-paste.vim'
 call plug#end()
 
 let mapleader=" "
@@ -102,7 +108,7 @@ let g:coc_snippet_prev = '<c-k>'
 imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
-xmap <leader>x  <Plug>(coc-convert-snippet)
+xmap <C-x>  <Plug>(coc-convert-snippet)
 "Usar tab para brincar en el codigo
 "inoremap <silent><expr> <TAB>
       "\ pumvisible() ? coc#_select_confirm() :
@@ -140,3 +146,5 @@ inoremap <silent><expr> <c-space> coc#refresh()
 nmap <leader>gs :G<CR> 
 nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
+"/////////////emmet ctrl+'+,
+let g:user_emmet_leader_key='<C-Z>'
