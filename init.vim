@@ -8,6 +8,8 @@ set ruler
 set showmatch
 set sw=2
 set relativenumber
+set autoindent cindent smartindent showmatch
+
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
                                 "Theme
 Plug 'morhetz/gruvbox'
@@ -45,8 +47,12 @@ Plug 'tpope/vim-fugitive'
 Plug 'jiangmiao/auto-pairs'
 "Color
 Plug 'KabbAmine/vCoolor.vim'
+"Pickachu Colors
+Plug 'DougBeney/pickachu'
 "Copy 
 Plug 'NLKNguyen/copy-cut-paste.vim'
+"Tabline
+Plug 'codota/tabnine-vim'
 call plug#end()
 
 let mapleader=" "
