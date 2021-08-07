@@ -52,7 +52,10 @@ Plug 'DougBeney/pickachu'
 "Copy 
 Plug 'NLKNguyen/copy-cut-paste.vim'
 "Tabline
-Plug 'codota/tabnine-vim'
+"poner :CocInstall coc-tabnine
+"Plug 'codota/tabnine-vim'
+"Suntaxis shows the error
+Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 let mapleader=" "
@@ -154,3 +157,11 @@ nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 "/////////////emmet ctrl+'+,
 let g:user_emmet_leader_key='<C-Z>'
+"/////////////Suntaxis config
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
