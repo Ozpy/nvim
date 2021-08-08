@@ -9,6 +9,7 @@ set showmatch
 set sw=2
 set relativenumber
 set autoindent cindent smartindent showmatch
+set incsearch
 
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
                                 "Theme
@@ -59,6 +60,7 @@ Plug 'vim-syntastic/syntastic'
 call plug#end()
 
 let mapleader=" "
+ 
 
 "Config shortcuts
 nmap <Leader>q :q<CR>
