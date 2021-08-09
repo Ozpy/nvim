@@ -17,10 +17,8 @@ func! GetSelectedText()
     let result = getreg("x")
     return result
 endfunc
-
 noremap <C-C> :call system('clip.exe', GetSelectedText())<CR>
 noremap <C-X> :call system('clip.exe', GetSelectedText())<CR>gvx
-
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
                                 "Theme
 Plug 'morhetz/gruvbox'
@@ -67,6 +65,8 @@ Plug 'NLKNguyen/copy-cut-paste.vim'
 "Plug 'codota/tabnine-vim'
 "Suntaxis shows the error
 Plug 'vim-syntastic/syntastic'
+"codi
+Plug 'metakirby5/codi.vim'
 call plug#end()
 
 let mapleader=" "
