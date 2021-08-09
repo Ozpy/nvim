@@ -11,6 +11,16 @@ set relativenumber
 set autoindent cindent smartindent showmatch
 set incsearch
 
+"copiar y pegar
+func! GetSelectedText()
+    normal gv"xy
+    let result = getreg("x")
+    return result
+endfunc
+
+noremap <C-C> :call system('clip.exe', GetSelectedText())<CR>
+noremap <C-X> :call system('clip.exe', GetSelectedText())<CR>gvx
+
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
                                 "Theme
 Plug 'morhetz/gruvbox'
