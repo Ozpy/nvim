@@ -10,8 +10,7 @@ set sw=2
 set relativenumber
 set autoindent cindent smartindent showmatch
 set incsearch
-
-"copiar y pegar
+"---------------copiar y pegar---------------
 func! GetSelectedText()
     normal gv"xy
     let result = getreg("x")
@@ -20,9 +19,9 @@ endfunc
 noremap <C-C> :call system('clip.exe', GetSelectedText())<CR>
 noremap <C-X> :call system('clip.exe', GetSelectedText())<CR>gvx
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-                                "Theme
+"---------------Theme---------------
 Plug 'morhetz/gruvbox'
-                                "IDE:
+"---------------IDE---------------
 "Easymotion
 Plug 'easymotion/vim-easymotion'
 "NerdTree
@@ -64,20 +63,37 @@ Plug 'NLKNguyen/copy-cut-paste.vim'
 "poner :CocInstall coc-tabnine
 "Plug 'codota/tabnine-vim'
 "Suntaxis shows the error
-Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic', {'for': 'python'}
 "codi
 Plug 'metakirby5/codi.vim'
+"ctrlp otro buscador de archivos
+Plug 'ctrlpvim/ctrlp.vim'
+"Runcode (ejecuta pedazos de codigo)
+Plug '0x84/vim-coderunner'
+"---------------pack de plugs hay que checarlos---------------
+"Plug 'vim-airline/vim-airline'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-fugitive'
+"Plug 'ervandew/supertab'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'tpope/vim-commentary', {'for': ['sh', 'python', 'markdown']}
+"Plug 'ironcamel/vim-script-runner', {'for': ['sh', 'python']}
+"Plug 'SirVer/ultisnips', {'for': ['sh', 'python', 'markdown']}
+"Plug 'honza/vim-snippets', {'for': ['sh', 'python', 'markdown']}
+"Plug 'vim-syntastic/syntastic', {'for': 'python'}
 call plug#end()
-
+"---------------MapLeaders----------------
 let mapleader=" "
- 
-
-"Config shortcuts
+"---------------Shortcuts---------------
 nmap <Leader>q :q<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>wq :wq<CR>
 imap aa <Esc>
 nmap <Leader>f :Files<CR>
+"---------------Ejecutar JS---------------
+nmap <Leader>nd :w<CR>:!nodejs %<CR>
+"Config word wrapping 
+set wrap lbr nolist 
 "Config tabs
  nmap <Leader>1 :b1<CR>
  nmap <Leader>2 :b3<CR>
@@ -88,34 +104,27 @@ nmap <Leader>f :Files<CR>
  nmap <Leader>H :bprevious<CR>
  nmap <Leader>l gt<CR>
  nmap <Leader>h gT<CR>
-
-"Config Theme:
+"---------------Theme---------------:
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 set background=dark
-
-"Config easymotion
+"---------------easymotion---------------
 nmap <Leader>s <Plug>(easymotion-s2)
-
-"Config NerdTree
+"---------------NerdTree---------------
 nmap <Leader>nt :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen=1
-
-"Config airline
+"---------------Airline---------------
 set ttimeoutlen=50
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
-
 if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline_theme='bubblegum'
-                                                                      "Config nerdCommenter
+"---------------NerdCommenter---------------
 filetype plugin on
-                                                                      "Config COC snippets
-" Use <C-l> for trigger snippet expand.
-imap <C-l> <Plug>(coc-snippets-expand)
+"---------------COC snippets---------------
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
 
@@ -130,6 +139,7 @@ imap <C-j> <Plug>(coc-snippets-expand-jump)
 
 " Use <leader>x for convert visual selected code to snippet
 xmap <C-x>  <Plug>(coc-convert-snippet)
+
 "Usar tab para brincar en el codigo
 "inoremap <silent><expr> <TAB>
       "\ pumvisible() ? coc#_select_confirm() :
@@ -150,15 +160,18 @@ nmap <Leader>cmd :FloatermNew
 let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
 nmap <Leader>cmdp :FloatermPrev
+"--------------floaterm atajos para lenguajes-----------------
+nmap <Leader>epy :w<CR>:FloatermSend python3 %<CR>:FloatermShow<CR>
 " Configuration floaterm 
-let g:floaterm_keymap_new    = '<F9>'
+let g:floaterm_keymap_kill   = '<F9>'
+let g:floaterm_keymap_new    = '<F10>'
 let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F12>'
 "//////////Config COC movimiento de seleccion de autocompletar
 "Use <Tab> and <S-Tab> to navigate the completion list:
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <Tab> pumvisible() ?BORRAR"\<C-n>" : BORRAR"\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? BORRAR"\<C-p>" : BORRAR"\<S-Tab>"
 " use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
 ""//////Config Fugitive
@@ -169,11 +182,5 @@ nmap <leader>gh :diffget //3<CR>
 nmap <leader>gu :diffget //2<CR>
 "/////////////emmet ctrl+'+,
 let g:user_emmet_leader_key='<C-Z>'
-"/////////////Suntaxis config
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"---------------Live-Server---------------
+nmap <leader>live :FloatermSend live-server<CR> 
