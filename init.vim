@@ -70,6 +70,10 @@ Plug 'metakirby5/codi.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 "Runcode (ejecuta pedazos de codigo)
 Plug '0x84/vim-coderunner'
+"surround encerrar cososas como palabras o lineas
+Plug 'tpope/vim-surround'
+"Vim begood para mejorar en la velocidad de vim
+Plug 'ThePrimeagen/vim-be-good'
 "---------------pack de plugs hay que checarlos---------------
 "Plug 'vim-airline/vim-airline'
 "Plug 'tpope/vim-surround'
@@ -92,8 +96,11 @@ imap aa <Esc>
 nmap <Leader>f :Files<CR>
 "---------------Ejecutar JS---------------
 nmap <Leader>nd :w<CR>:!nodejs %<CR>
+"---------------Configuraciones de vim --------
 "Config word wrapping 
 set wrap lbr nolist 
+"config search con /
+set noic nohls is 
 "Config tabs
  nmap <Leader>1 :b1<CR>
  nmap <Leader>2 :b3<CR>
@@ -161,7 +168,8 @@ let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
 nmap <Leader>cmdp :FloatermPrev
 "--------------floaterm atajos para lenguajes-----------------
-nmap <Leader>epy :w<CR>:FloatermSend python3 %<CR>:FloatermShow<CR>
+nmap <Leader>epy :w<CR>:FloatermNew powershell.exe python % <CR>
+
 " Configuration floaterm 
 let g:floaterm_keymap_kill   = '<F9>'
 let g:floaterm_keymap_new    = '<F10>'
