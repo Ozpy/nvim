@@ -10,7 +10,6 @@ set sw=2
 set relativenumber
 set autoindent cindent smartindent showmatch
 set incsearch
-
 "---------------copiar y pegar---------------
 func! GetSelectedText()
     normal gv"xy
@@ -20,7 +19,6 @@ endfunc
 noremap <C-C> :call system('clip.exe', GetSelectedText())<CR>
 noremap <C-X> :call system('clip.exe', GetSelectedText())<CR>gvx
 call plug#begin(has('nvim') ? stdpath('data') . '/plugged' : '~/.vim/plugged')
-
 "---------------Theme---------------
 Plug 'morhetz/gruvbox'
 
@@ -75,23 +73,30 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug '0x84/vim-coderunner'
 "surround encerrar cososas como palabras o lineas
 Plug 'tpope/vim-surround'
-"Vim begood para mejorar en la velocidad de vim
-Plug 'ThePrimeagen/vim-be-good'
+"Vim begood para mejorar en la velocidad de vim (Se necesita neovim 5.x y aun no se como instalarlo)
+"Plug 'ThePrimeagen/vim-be-good'
+"---------------pack de plugs hay que checarlos---------------
+"Plug 'vim-airline/vim-airline'
+"Plug 'tpope/vim-surround'
+"Plug 'tpope/vim-fugitive'
+"Plug 'ervandew/supertab'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'tpope/vim-commentary', {'for': ['sh', 'python', 'markdown']}
+"Plug 'ironcamel/vim-script-runner', {'for': ['sh', 'python']}
+"Plug 'SirVer/ultisnips', {'for': ['sh', 'python', 'markdown']}
+"Plug 'honza/vim-snippets', {'for': ['sh', 'python', 'markdown']}
+"Plug 'vim-syntastic/syntastic', {'for': 'python'}
 call plug#end()
-
 "---------------MapLeaders----------------
 let mapleader=" "
-
 "---------------Shortcuts---------------
 nmap <Leader>q :q<CR>
 nmap <Leader>w :w<CR>
 nmap <Leader>wq :wq<CR>
 imap aa <Esc>
 nmap <Leader>f :Files<CR>
-
 "---------------Ejecutar JS---------------
 nmap <Leader>nd :w<CR>:!nodejs %<CR>
-
 "---------------Configuraciones de vim --------
 "Config word wrapping 
 set wrap lbr nolist 
@@ -107,15 +112,19 @@ set noic nohls is
  nmap <Leader>H :bprevious<CR>
  nmap <Leader>l gt<CR>
  nmap <Leader>h gT<CR>
+
 "---------------Theme---------------:
 colorscheme gruvbox
 let g:gruvbox_contrast_dark = "hard"
 set background=dark
+
 "---------------easymotion---------------
 nmap <Leader>s <Plug>(easymotion-s2)
+
 "---------------NerdTree---------------
 nmap <Leader>nt :NERDTreeFind<CR>
 let NERDTreeQuitOnOpen=1
+
 "---------------Airline---------------
 set ttimeoutlen=50
 let g:airline#extensions#hunks#enabled=0
@@ -125,28 +134,43 @@ if !exists('g:airline_symbols')
 endif
 let g:airline_symbols.space = "\ua0"
 let g:airline_theme='bubblegum'
+
 "---------------NerdCommenter---------------
 filetype plugin on
+
 "---------------COC snippets---------------
 " Use <C-j> for select text for visual placeholder of snippet.
 vmap <C-j> <Plug>(coc-snippets-select)
-
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
 let g:coc_snippet_next = '<c-j>'
-
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
 let g:coc_snippet_prev = '<c-k>'
-
 " Use <C-j> for both expand and jump (make expand higher priority.)
 imap <C-j> <Plug>(coc-snippets-expand-jump)
-
 " Use <leader>x for convert visual selected code to snippet
 xmap <C-x>  <Plug>(coc-convert-snippet)
+"Usar tab para brincar en el codigo
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? coc#_select_confirm() :
+      "\ coc#expandableOrJumpable() ?
+""\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      "\ <SID>check_back_space() ?
+""\<TAB>" :
+      "\ coc#refresh()
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
 
+"let g:coc_snippet_next = '<tab>'
+""///////////Config Floaterm
 nmap <Leader>cmd :FloatermNew
 let g:floaterm_keymap_toggle = '<F12>'
 nmap <Leader>cmdn :FloatermNext
 nmap <Leader>cmdp :FloatermPrev
+
+"--------------floaterm atajos para lenguajes-----------------
+nmap <Leader>epy :w<CR>:FloatermNew powershell.exe python % <CR>
 
 " Configuration floaterm 
 let g:floaterm_keymap_kill   = '<F9>'
@@ -154,8 +178,13 @@ let g:floaterm_keymap_new    = '<F10>'
 let g:floaterm_keymap_prev   = '<F7>'
 let g:floaterm_keymap_next   = '<F8>'
 let g:floaterm_keymap_toggle = '<F12>'
-
+"//////////Config COC movimiento de seleccion de autocompletar
+"Use <Tab> and <S-Tab> to navigate the completion list:
+"inoremap <expr> <Tab> pumvisible() ?BORRAR"\<C-n>" : BORRAR"\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? BORRAR"\<C-p>" : BORRAR"\<S-Tab>"
+" use <c-space>for trigger completion
 inoremap <silent><expr> <c-space> coc#refresh()
+
 ""//////Config Fugitive
 "status we can stage and unstage los archivos con s en el archivo para stage y
 "u para unstage  
@@ -168,35 +197,3 @@ let g:user_emmet_leader_key='<C-Z>'
 
 "---------------Live-Server---------------
 nmap <leader>live :FloatermSend live-server<CR> 
-"---------------Comiling---------------
-map <F5> :call CompileRunGcc()<CR>
-func! CompileRunGcc()
-exec "w"
-if &filetype == 'c'
-exec "!gcc % -o %<"
-exec "!time ./%<"
-elseif &filetype == 'cpp'
-exec "!g++ % -o %<"
-exec "!time ./%<"
-elseif &filetype == 'java'
-exec "FloatermNew powershell.exe  echo javac %" 
-exec "!time "
-exec "FloatermNew powershell.exe java %:r" 
-"exec 
-""FloatermNew powershell.exe java -cp %:p:h %:t:r" 
-elseif &filetype == 'sh'
-exec "!time bash %"
-elseif &filetype == 'python'
-"exec 
-""!time python2.7 %"
-exec "FloatermNew powershell.exe python %"
-elseif &filetype == 'html'
-exec "!firefox % &"
-elseif &filetype == 'go'
-exec "!go build %<"
-exec "!time go run %"
-elseif &filetype == 'mkd'
-exec "!~/.vim/markdown.pl % > %.html &"
-exec "!firefox %.html &"
-endif
-endfunc
